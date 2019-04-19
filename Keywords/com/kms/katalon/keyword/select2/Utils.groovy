@@ -11,7 +11,9 @@ import groovy.transform.CompileStatic
 import com.kms.katalon.core.annotation.Keyword
 
 public class Utils {
-	static WebDriver driver = DriverFactory.getWebDriver()
+
+	static int timeout = 60
+	
 	
 	/**
 	 * Click on select2 text box.
@@ -33,11 +35,11 @@ public class Utils {
 	@CompileStatic
 	@Keyword
 	static WebElement findContainer(TestObject to) {
-		WebElement select2Element = WebUiCommonHelper.findWebElement(to, 60)
+		WebElement select2Element = WebUiCommonHelper.findWebElement(to, timeout)
 		String subContainerClass ="./following-sibling::*[contains(@class,'container')]"
 		return select2Element.findElement(By.xpath(subContainerClass))
 	}
-	
+
 	/**
 	 * Select the result after filling text search to select2 text box.
 	 *
@@ -47,6 +49,7 @@ public class Utils {
 	@CompileStatic
 	@Keyword
 	static selectResult(String option, String subContainerOpenClass) {
+		WebDriver driver = DriverFactory.getWebDriver()
 		String resultClass = "//li[contains(@class,'select2-results') and normalize-space(text())='" + option + "']"
 		WebElement result = driver.findElement(By.xpath(subContainerOpenClass + resultClass))
 		result.click()
@@ -61,6 +64,7 @@ public class Utils {
 	@CompileStatic
 	@Keyword
 	static String enterText(String option) {
+		WebDriver driver = DriverFactory.getWebDriver()
 		String subContainerOpenClass = "//*[contains(@class,'container--open')]"
 		WebElement searchBox =  driver.findElement(By.xpath(subContainerOpenClass + "//input"))
 		searchBox.sendKeys(option)

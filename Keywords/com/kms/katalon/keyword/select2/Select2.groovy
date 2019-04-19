@@ -15,7 +15,6 @@ import groovy.transform.CompileStatic
 
 public class Select2 {
 
-
 	/**
 	 * Select an option by label.
 	 *
@@ -94,7 +93,7 @@ public class Select2 {
 	@Keyword
 	static List<String> getAllOptionsLabel(TestObject to) throws IOException {
 		List<String> result = new ArrayList<>()
-		WebElement select2Element = WebUiCommonHelper.findWebElement(to, 60)
+		WebElement select2Element = WebUiCommonHelper.findWebElement(to, Utils.timeout)
 		List options = select2Element.findElements(By.xpath(".//option"))
 		for (WebElement option: options) {
 			result.add(option.getText())
@@ -113,7 +112,7 @@ public class Select2 {
 	@Keyword
 	static void removeOptions(TestObject to, List<String> options) throws IOException {
 		List<String> result = new ArrayList<>()
-		WebElement select2Element = WebUiCommonHelper.findWebElement(to, 60)
+		WebElement select2Element = WebUiCommonHelper.findWebElement(to, Utils.timeout)
 		List<String> selectedOptionsLabel = getSelectedOptionsLabel(to)
 		for (String option: options) {
 			if (selectedOptionsLabel.contains(option)){
